@@ -8,11 +8,12 @@ do {
     let producto = prompt ("ingrese un producto y ponga fin para terminar");
     alert ("ahora indique su precio"); 
     precioProducto = parseFloat (prompt("ingrese el precio del producto para realizar el descuento"));
-    if (precioProducto) {
+    if (precioProducto || producto != "fin") {
         alert ( "el precio de del producto " + producto + " con descuento es: " + calcularDescuento(precioProducto));
+    
     }
     
-}while (precioProducto != "fin");
+}while (precioProducto || producto != "fin");
 
 
 
