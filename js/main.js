@@ -1,19 +1,59 @@
+class Producto {
+    contructor (precio, cantidad) {
+        this.precio = parseFloat(precio);
+        this.cantidad = parseInt (cantidad);
+    }
 
-function calcularDescuento (precio) {
-    return precio - (precio * 0.10);
-    
+    calcularDescuento (precio) {
+        return this.precio - (this.precio * 0.10 *( this.cantidad));
+        
+    }
 }
 
+
+class Factura {
+    constructor () {
+        this.productos = [];
+        this.total = 0
+    }
+
+    agregarProducto (precio, cantidad) {
+        const producto = new Producto(precio, cantidad);
+        this.productos.push(producto);;
+    }
+
+    calcularTotalconDescuento () {
+        let total = 0;
+
+        for (const producto of this.productos) {
+            total = total + producto.calcularDescuento();
+          }
+        this.total = total;
+
+        return total;
+    }
+}
+const factura = new Factura();
+
+let precio;
+let cantidad;
+
 do {
-    let producto = prompt ("ingrese un producto y ponga fin para terminar");
-    alert ("ahora indique su precio"); 
-    precioProducto = parseFloat (prompt("ingrese el precio del producto para realizar el descuento"));
-    if (precioProducto || producto != "fin") {
-        alert ( "el precio de del producto " + producto + " con descuento es: " + calcularDescuento(precioProducto));
+    
+    precio = (prompt("ingrese el precio del producto para realizar el descuento"));
+    cantidad = prompt ("ingrese un cantidad");
+
+    finalizar = prompt('ponga fin');
+
+    factura.agregarProducto (precio, cantidad);
+
+    
     
     }
     
-}while (precioProducto || producto != "fin");
+while (finalizar != "fin");
+
+alert ("el precio " + precio + " de la cantidad " + cantidad + " con el descuento es: " + factura.calcularTotalconDescuento());
 
 
 
