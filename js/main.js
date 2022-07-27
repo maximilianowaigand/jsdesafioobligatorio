@@ -4,8 +4,8 @@ class Producto {
         this.cantidad = parseInt (cantidad);
     }
 
-    calcularDescuento (precio) {
-        return this.precio - (this.precio * 0.10 *( this.cantidad));
+    calcularDescuento () {
+        return (this.precio * this.cantidad) - (this.precio * 0.10 * this.cantidad);
         
     }
 }
@@ -31,8 +31,12 @@ class Factura {
         this.total = total;
 
         return total;
+        
     }
 }
+console.log(Factura);
+
+
 const factura = new Factura();
 
 let precio;
@@ -43,15 +47,14 @@ do {
     precio = (prompt("ingrese el precio del producto para realizar el descuento"));
     cantidad = prompt ("ingrese un cantidad");
 
+    
+
+    
     finalizar = prompt('ponga fin');
 
-    factura.agregarProducto (precio, cantidad);
-
+    factura.agregarProducto(precio, cantidad);    
     
-    
-    }
-    
-while (finalizar != "fin");
+    } while (finalizar != "fin");
 
 alert ("el precio " + precio + " de la cantidad " + cantidad + " con el descuento es: " + factura.calcularTotalconDescuento());
 
