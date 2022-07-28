@@ -19,21 +19,20 @@ while(selection != "si" && selection != "no") {
 
 if (selection == "si") {
 
-    const nombres = productos.map ((el) => el.nombre + " " + el.precio);
+    const nombresyPrecios = productos.map ((el) => el.nombre + " " + el.precio);
 
-    alert ("nuestros productos son " + productos.length +" :\n" + nombres.join('\n'));
+    alert ("nuestros productos son " + productos.length +" :\n" + nombresyPrecios.join('\n'));
 
 } else if (selection == "no") {
     alert ("gracias por venir, hasta pronto")
 }
 
 
-while ( selection != "no") {
-    
-    let producto = prompt ("agrega productos a tu carrito y ponga fin para terminar");
+while ( selection != "no") {    
+    let producto = prompt ("agrega productos a tu carrito y ponga esc para terminar");
     let precio = 0 
 
-    if (producto == "teclado" || producto == "mouse" || producto =="cpu" ||producto == "monitor"){
+    if (producto == "teclado" || producto == "mouse" || producto == "cpu" || producto == "monitor") {
         switch (producto) {
             case "teclado":
                 precio = 1500;
@@ -50,17 +49,27 @@ while ( selection != "no") {
             default:
                  break;
         }
-    let unidades = parseInt(promp("cuantas unidades quiere llevar"));
+
+    let cantidad = parseInt(prompt("cuantas unidades quiere llevar"));
 
     carrito.push({producto, cantidad, precio})
+    console.log(carrito)
     } else {
-        alert("no ingreso un producto de la lista o ponga fin para terminar")
+        alert("no ingreso un producto de la lista o ingreso esc para terminar")
     }
-}
 
-while (producto === "fin") {
+
+ while (producto === "esc") {
     alert ("gracias por su compra.a continuacion le indicaremos sus productos")
     carrito.forEach((carritoFinal) => {
+       alert ("usted compro:\n" + carritoFinal.producto + " " + carritoFinal.cantidad + "=" + (carritoFinal.cantidad * carritoFinal.precio) )
+       alert ("el total a pagar por producto:\n" + (carritoFinal.cantidad * carritoFinal.precio) )
+
 
     })
+ break;
+ }
 }
+
+const total = carrito.reduce ((ecc, el) => acc + el.precio * el.cantidad, 0)
+alert ("el total a pagar es: " + total)
