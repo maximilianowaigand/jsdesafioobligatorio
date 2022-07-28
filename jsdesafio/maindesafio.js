@@ -59,7 +59,7 @@ while ( selection != "no") {
     }
 
 
- while (producto === "esc") {
+ if (producto == "esc") {
     alert ("gracias por su compra.a continuacion le indicaremos sus productos")
     carrito.forEach((carritoFinal) => {
        alert ("usted compro:\n" + carritoFinal.producto + " " + carritoFinal.cantidad + "=" + (carritoFinal.cantidad * carritoFinal.precio) )
@@ -71,5 +71,5 @@ while ( selection != "no") {
  }
 }
 
-const total = carrito.reduce ((ecc, el) => acc + el.precio * el.cantidad, 0)
+const total = carrito.reduce ((ecc, el) => ecc +( el.precio * el.cantidad), 0)
 alert ("el total a pagar es: " + total)
