@@ -1,0 +1,11 @@
+.tarjetas {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+align-items: flex-end;}
+
+.cantidad {
+    width: 90%;
+    border-bottom: 2px solid black ;
+
+}

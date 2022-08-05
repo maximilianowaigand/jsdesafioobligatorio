@@ -1,4 +1,4 @@
-const productos = [
+/*const productos = [
     {nombre: "teclado", precio: 1500},
     {nombre: "mouse", precio: 1000},
     {nombre: "cpu", precio: 3000},
@@ -7,8 +7,6 @@ const productos = [
 
 let carrito = []
 
-
- alert ("bienvenido a la tienda virtual");
 
  let selection = prompt("desea comprar algun producto si o no")
 
@@ -70,6 +68,43 @@ while ( selection != "no") {
  break;
  }
 }
+
+const total = carrito.reduce ((ecc, el) => ecc +( el.precio * el.cantidad), 0)
+alert ("el total a pagar es: " + total)*/
+const agregar = document.getElementById('agregar')
+let cantidad =  document.getElementsByClassName('cantidad');
+
+let carrito = [];
+
+const productos = [
+{producto: "teclado", precio: 1500},
+{producto: "mouse",precio: 1000},
+{producto: "cpu",precio: 3000},
+{producto: "monitor",precio: 10000},
+];
+
+
+function compra (producto, precio) {
+    console.log(producto, precio);
+    productos.push(producto);
+    carritoFinal = carrito + (precio * cantidad);
+    document.getElementById ('compra').innerHTML = 'pagar $${carritoFinal}'
+}
+
+
+
+
+const pagar = document.getElementById('pagar');
+
+pagar.addEventListener ('submit', () => {
+    carrito.forEach((carritoFinal) => {
+        alert ("usted compro:\n" + carritoFinal.producto + " " + carritoFinal.cantidad + "=" + (carritoFinal.cantidad * carritoFinal.precio) )
+        alert ("el total a pagar por producto:\n" + (carritoFinal.cantidad * carritoFinal.precio) )
+    })
+
+
+});
+
 
 const total = carrito.reduce ((ecc, el) => ecc +( el.precio * el.cantidad), 0)
 alert ("el total a pagar es: " + total)
