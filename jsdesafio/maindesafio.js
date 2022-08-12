@@ -71,40 +71,117 @@ while ( selection != "no") {
 
 const total = carrito.reduce ((ecc, el) => ecc +( el.precio * el.cantidad), 0)
 alert ("el total a pagar es: " + total)*/
-const agregar = document.getElementById('agregar')
-let cantidad =  document.getElementsByClassName('cantidad');
+let tarjetas = document.getElementById('tarjetas');
 
-let carrito = [];
+console.log(tarjetas) 
 
-const productos = [
-{producto: "teclado", precio: 1500},
-{producto: "mouse",precio: 1000},
-{producto: "cpu",precio: 3000},
-{producto: "monitor",precio: 10000},
-];
+let productos = [
+    {
+        id: 1,
+        producto: "teclado",
+        precio: 1500,
+        img: "imagenes/teclado.jpg"
+
+    },
+    {
+        id: 2,
+        producto: "mouse",
+        precio: 1000,
+        img: "imagenes/mouse.jpg"
+    },
+    {
+        id: 3,
+        producto: "cpu",
+        precio: 3000,        
+        img: "imagenes/cpu.jpg" 
+    },
+    {
+        id:4,
+        producto: "monitor",
+        precio: 10000,        
+        img: "imagenes/monitor.jpg"
+    },
+    ];
+
+    
+    let generarcompra = () => {
+        return (tarjetas.innerHTML = productos.map((e)=>{
+            let {producto, precio, id, img } = e
+            return (tarjetas.innerHTML= `
+            <div id=producto-id-${id} class="card" style="width: 18rem;">
+      <img src="${img}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">${producto}</h5>
+        
+        <a id="agregar" class="btn btn-primary agregar">Agregar</a>
+        <div class="price-quanity">
+        <p class="card-text">$ ${precio}</p>
+        <div class"bottons">
+        <i onclick="cantidadSuma(${id})" class="bi bi-dash-lg">+</i>
+        <div id=${id} class="quantity">0</div>
+        <i onclick="cantidadResta(${id})" class="bi bi-dash-lg">-</i>
+        </div>
+        </div>
+        <div>
+          <input class="cantidad" type="text">
+        </div>
+      </div>
+    </div>`
+        )}).join(" "))
+    }
+
+    generarcompra ();
+
+    let cantidad =[];
+
+    let cantidadSuma = (id) => {
+        let selectedItem = id;
+        let search = cantidad.find((e) => e.id === selectedItem.id);
+
+        if (search === undefined) {
+            cantidad.push({
+                id: selectedItem.id,
+                item: 1,
+
+            });
+            
+
+        } else {
+            search.item += 1;
+        }
+        
+        console.log(cantidad);
+        cantidadTotal(selectedItem.id)
+    };
+    let cantidadResta = (id) => {
+        let selectedItem = id;
+        let search = cantidad.find((e) => e.id === selectedItem.id);
+
+        if (search.item === 0) return
+        else {
+            search.item -= 1;
+        }
+        
+        console.log(cantidad);
+        cantidadTotal(selectedItem.id)
+
+    }
+    let cantidadTotal = (id) => {
+        console.log(id)
+    }
 
 
-function compra (producto, precio) {
-    console.log(producto, precio);
-    productos.push(producto);
-    carritoFinal = carrito + (precio * cantidad);
-    document.getElementById ('compra').innerHTML = 'pagar $${carritoFinal}'
-}
+    
+    // let carrito = [];
+    // const agregar = document.getElementById('agregar')
+
+    // for (const producto of productos){
+    //     agregar.addEventListener("click", agregarproducto)
+    //     function agregarproducto ( ){
+    //         console.log (producto.precio)
+    //     }
+
+    // }
 
 
-
-
-const pagar = document.getElementById('pagar');
-
-pagar.addEventListener ('submit', () => {
-    carrito.forEach((carritoFinal) => {
-        alert ("usted compro:\n" + carritoFinal.producto + " " + carritoFinal.cantidad + "=" + (carritoFinal.cantidad * carritoFinal.precio) )
-        alert ("el total a pagar por producto:\n" + (carritoFinal.cantidad * carritoFinal.precio) )
-    })
-
-
-});
-
-
-const total = carrito.reduce ((ecc, el) => ecc +( el.precio * el.cantidad), 0)
-alert ("el total a pagar es: " + total)
+    
