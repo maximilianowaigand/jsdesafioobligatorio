@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "producto": "teclado",
+        "precio": 1500,
+        "img": "imagenes/teclado.jpg"
+
+    },
+    {
+        "id": 2,
+        "producto": "mouse",
+        "precio": 1000,
+        "img": "imagenes/mouse.jpg"
+    },
+    {
+        "id": 3,
+        "producto": "cpu",
+        "precio": 3000,        
+        "img": "imagenes/cpu.jpg" 
+    },
+    {
+        "id": 4,
+        "producto": "monitor",
+        "precio": 10000,        
+        "img": "imagenes/monitor.jpg"
+    }
+]
