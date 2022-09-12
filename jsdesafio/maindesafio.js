@@ -3,80 +3,39 @@ let tarjetas = document.getElementById('tarjetas');
 
 fetch('./jsdesafio/data.json')
    .then((Response) => Response.json())
-   .then((data) => { setTimeout (()=> console.log(data), 100)
+   .then((data) => { let generarcompra = () => {
+    return (tarjetas.innerHTML = data.map((e)=>{
+        let  { id, producto, precio, img } = e;
+        let search = cantidad.find ((e) => e.id === id) || [];
+        return `
+        <div id=producto-id-${id} class="item ">
+  <img width="220" src="${img}" alt="">
+  <div class="details">
+    <h3>${producto}</h3>
+    <a onclick="cantidadSuma(${id})" id="agregar" class="btn btn-primary agregar">Agregar</a>
+    <div class="price-quanity">
+    <h2>$ ${precio}</h2>
+    <div class="buttons">
+    <i onclick="cantidadSuma(${id})" class="bi bi-plus-lg">+</i>
+    <div id=${id} class="quantity">${
+        search.item === undefined ? 0 : search.item
+      }</div>
+    <i onclick="cantidadResta(${id})" class="bi bi-dash-lg">-</i>
+    </div>
+    </div>
+    </div>
+</div>`;
+    })
+    .join(""));
+};
+
+generarcompra ();
     
 });
 
-    
-   
 
-let productos = [
-    {
-        id: 1,
-        producto: "teclado",
-        precio: 1500,
-        img: "imagenes/teclado.jpg"
+let cantidad = JSON.parse(localStorage.getItem("data")) || [];
 
-    },
-    {
-        id: 2,
-        producto: "mouse",
-        precio: 1000,
-        img: "imagenes/mouse.jpg"
-    },
-    {
-        id: 3,
-        producto: "cpu",
-        precio: 3000,        
-        img: "imagenes/cpu.jpg" 
-    },
-    {
-        id: 4,
-        producto: "monitor",
-        precio: 10000,        
-        img: "imagenes/monitor.jpg"
-    },
-    ];
-    
-    let cantidad = JSON.parse(localStorage.getItem("data")) || []
-
-    
-    let generarcompra = () => {
-        return (tarjetas.innerHTML = productos.map((e)=>{
-            let  { id, producto, precio, img } = e;
-            let search = cantidad.find ((e) => e.id === id) || [];
-            return `
-            <div id=producto-id-${id} class="item" style="width: 18rem;">
-      <img src="${img}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">${producto}</h5>
-        
-        <a id="agregar" class="btn btn-primary agregar">Agregar</a>
-        <div class="price-quanity">
-        <p class="card-text">$ ${precio}</p>
-        <div class"bottons">
-        <i onclick="cantidadSuma(${id})" class="bi bi-dash-lg">+</i>
-        <div id=${id} class="quantity">${
-            search.item === undefined ? 0 : search.item
-          }</div>
-        <i onclick="cantidadResta(${id})" class="bi bi-dash-lg">-</i>
-        </div>
-        </div>
-        <div>
-          <input class="cantidad" type="text">
-        </div>
-      </div>
-    </div>`;
-        })
-        .join(" "));
-    };
-
-    generarcompra ();
-
-
-
-    
-    
 
     let cantidadSuma = (id) => {
         let selectedItem = id;
@@ -93,7 +52,14 @@ let productos = [
         } else {
             search.item += 1;
         };
-        Swal.fire('Any fool can use a computer');
+        localStorage.setItem("data", cantidad)
+        Swal.fire({position: 'top-end',
+        icon: 'success',
+        title: 'tu producto ha sido cargado',
+        showConfirmButton: false,
+        timer: 1500} );
+
+
         cantidadTotal(selectedItem);
         cantidad = cantidad.filter ((e)=> e.item !== 0);
       // console.log(cantidad);   
@@ -106,18 +72,24 @@ let productos = [
         let selectedItem = id;
         let search = cantidad.find((e) => e.id === id);
 
-        if (search.item === 0) return;
+        if (search === undefined) return;
+        else if (search.item === 0) return;
         else {
             search.item -= 1;
         };
+        cantidadTotal(selectedItem);
+        cantidad = cantidad.filter((e)=>e.item !==0);
         
-       // console.log(cantidad);
-        cantidadTotal();
+       // console.log(cantidad); 
+        
+
+
+        localStorage.setItem("data", JSON.stringify(cantidad));
 
     };
     let cantidadTotal = (id) => {
         let search = cantidad.find((e)=> e.id === id);
-        //console.log(search.item);
+        console.log(search.item);
        document.getElementById(id).innerHTML = search.item;
        calcular();
     }; 
@@ -129,18 +101,4 @@ let productos = [
       
     }
 
-
-    
-    // let carrito = [];
-    // const agregar = document.getElementById('agregar')
-
-    // for (const producto of productos){
-    //     agregar.addEventListener("click", agregarproducto)
-    //     function agregarproducto ( ){
-    //         console.log (producto.precio)
-    //     }
-
-    // }
-
-
-    
+    calcular();
